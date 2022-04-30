@@ -1,12 +1,14 @@
 from app import app
 import urllib.request,json
 from .models import movie
+import os
 
 Movie = movie.Movie
 
 # Getting api key
-api_key = app.config['MOVIE_API_KEY']
+api_key = app.config["MOVIE_API_KEY"]
 
+SECRET_KEY = os.urandom(32)
 # Getting the movie base url
 base_url = app.config["MOVIE_API_BASE_URL"]
 
