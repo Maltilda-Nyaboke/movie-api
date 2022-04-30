@@ -11,6 +11,7 @@ class Config:
     MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}'
     MOVIE_API_KEY = '<Movie API Key>'
     SECRET_KEY = '<Flask WTF Secret Key>'
+    MOVIE_API_KEY = '037c55d6b0ab6774fd8dcb27d1eaca9a'
     
 
 
