@@ -1,18 +1,28 @@
 from flask import Flask
-from .config import DevConfig
 from flask_bootstrap import Bootstrap
-import os
+from config import config_options
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 
-# Initializing application
-app = Flask(__name__,instance_relative_config= True)
+bootstrap = Bootstrap()
 
-SECRET_KEY = os.urandom(32)
+def create_app(config_name):
 
-# Setting up configuration
-app.config.from_object(DevConfig)
-app.config.from_pyfile('config.py')
+    app = Flask(__name__)
 
-from app import views
+    # Creating the app configurations
+    app.config.from_object(config_options[config_name])
 
-from app import error
-bootstrap = Bootstrap(app)
+    # Initializing flask extensions
+    bootstrap.init_app(app)
+    db.init_app(app)
+
+    # Will add the views and forms
+    # Registering the blueprint
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
+
+    from .requests import configure_request
+    configure_request(app)
+
+    return app
